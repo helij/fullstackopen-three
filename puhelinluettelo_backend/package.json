@@ -1,0 +1,26 @@
+{
+  "name": "puhelinluettelo_backend",
+  "version": "1.0.0",
+  "description": "Backend for puhelinluettelo application",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helij/fullstackopen-three.git"
+  },
+  "keywords": [
+    "puhelinluettelo"
+  ],
+  "author": "Heli",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/helij/fullstackopen-three/issues"
+  },
+  "homepage": "https://github.com/helij/fullstackopen-three#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
