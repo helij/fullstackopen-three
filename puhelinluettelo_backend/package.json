@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/helij/fullstackopen-three#readme",
   "dependencies": {
+    "cors": "^2.8.4",
     "express": "^4.16.4",
     "morgan": "^1.9.1"
   },
