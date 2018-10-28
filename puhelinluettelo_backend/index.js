@@ -56,22 +56,22 @@ app.get('/api/persons/:id', (request, response) => {
 
 app.put('/api/persons/:id', (request, response) => {
     const body = request.body
-  
+
     const person = {
-      name: body.name,
-      number: body.number
+        name: body.name,
+        number: body.number
     }
-  
+
     Person
-      .findByIdAndUpdate(request.params.id, person, { new: true } )
-      .then(updatedNote => {
-        response.json(formatPerson(updatedNote))
-      })
-      .catch(error => {
-        console.log(error)
-        response.status(400).send({ error: 'malformatted id' })
-      })
-  })
+        .findByIdAndUpdate(request.params.id, person, { new: true })
+        .then(updatedNote => {
+            response.json(formatPerson(updatedNote))
+        })
+        .catch(error => {
+            console.log(error)
+            response.status(400).send({ error: 'malformatted id' })
+        })
+})
 
 app.post('/api/persons/', (request, response) => {
     const body = request.body
@@ -83,19 +83,33 @@ app.post('/api/persons/', (request, response) => {
         response.status(400).send({ error: 'number missing' })
     }
 
-    const person = new Person({
-        name: body.name,
-        number: body.number
-    })
+    Person
+        .find({ name: body.name })
+        .then(result => {
+            if (result.length > 0) {
+                return null
+            }
+            else {
+                const person = new Person({
+                    name: body.name,
+                    number: body.number
+                })
+                return person
+            }
+        }).then(result => {
+            if (result) {
+                result.save()
+                    .then(savedPerson => {
+                        return formatPerson(savedPerson)
+                    })
+                    .then(savedAndFormattedPerson => {
+                        response.json(savedAndFormattedPerson)
+                    })
+            } else {
+                response.status(400).send({ error: 'name must be unique' })
+            }
+        })
 
-    person
-    .save()
-    .then(savedPerson => {
-      return formatPerson(savedPerson)
-    })
-    .then(savedAndFormattedPerson => {
-      response.json(savedAndFormattedPerson)
-    })
 })
 
 app.delete('/api/persons/:id', (request, response) => {
