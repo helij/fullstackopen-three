@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 require('dotenv').config();
 // korvaa url oman tietokantasi urlilla. ethän laita salasanaa Githubiin!
-const url = `mongodb://${process.env.DATABASE_USERNAME}:${process.env.DATABASE_PASSWORD}@ds143593.mlab.com:43593/fullstackopen`
+const url = process.env.MONGODB_URI
 
 mongoose.connect(url)
 
